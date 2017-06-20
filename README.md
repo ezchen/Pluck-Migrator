@@ -12,6 +12,7 @@ In addition to this issue, the content is in XML form and often refers to other 
 Create secret_config.rb in the folder ~/src/config/ and include the following based on your Pluck setup.
 
 $access_key = "YOUR_ACCESS_KEY"
+
 $PLUCK_URL = "http://pluck.example.com"
 
 ## The CLI Interface
