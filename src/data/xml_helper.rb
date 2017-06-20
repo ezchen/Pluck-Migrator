@@ -42,5 +42,8 @@ class PluckXml
     return xml.child.xpath('ContentBody')
   end
 
+  def self.get_text(xml, tag)
+    return xml.xpath(tag).text
+  end
 
 end

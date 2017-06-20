@@ -2,6 +2,7 @@ require 'Nokogiri'
 require 'http'
 require_relative 'xml_helper'
 require 'thread'
+require_relative '../config/config.rb'
 
 # handles logic for retrieving the xml data from Pluck
 class Api
@@ -43,7 +44,7 @@ class Api
       more_pages = PluckXml.more_pages(xml_resp)
       page = page + 1
 
-      PluckXml.get_content_body(xml_resp).xpath('//UserProfile').each do
+      PluckXml.get_content_body(xml_resp).xpath("//#{content_type}").each do
 
         |content_item|
 
@@ -79,6 +80,9 @@ class Api
 
     items = Queue.new
 
+    threads = []
+    thread_count = 0
+
     # Iterate through all days starting at the date specified up to present
     # Download content items for each day and push into an array
     Date.new(start_year, start_month, start_day).upto(Date.today) do |date|
@@ -87,18 +91,31 @@ class Api
       day = format('%02d', date.day)
       date_string = "#{year}-#{month}-#{day}"
 
-      # Use threading to speed up http requests. TODO: switch to a thread pool library
-      # This doesn't speed up the code by much... :(
+      # Use threading to speed up http requests
       thr = Thread.new do
         self.get_all_content_items_for_day(items, base_url, content_type, date_string, key)
         print "Done with #{date_string}. Number of items: #{items.length}\n"
       end
-      thr.join
+
+      threads.push(thr)
+
+      # Join every 100 threads
+      thread_count = thread_count + 1
+      if thread_count >= 100
+        threads.each do |thread|
+          thread.join
+        end
+        thread_count = 0
+      end
+    end
+
+    threads.each do |thread|
+      thread.join
     end
 
     return items
   end
 end
 
-
-Api.get_all_content_items('http://pluck.frommers.com', 'UserProfile', 'KEY', 2013, 5, 10)
+#Api.get_all_content_items('http://pluck.frommers.com', 'UserProfile', $access_key, 2013, 5, 10)
+#Api.get_all_content_items('http://pluck.frommers.com', 'BlogPost', $access_key, 2013, 5, 10)

@@ -23,6 +23,7 @@ GEM
     sequel (4.47.0)
     test-unit (3.2.4)
       power_assert
+    thor (0.19.1)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.4)
@@ -36,6 +37,7 @@ DEPENDENCIES
   require_all!
   sequel!
   test-unit!
+  thor!
 
 BUNDLED WITH
    1.12.4
