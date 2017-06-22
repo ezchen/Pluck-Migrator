@@ -102,18 +102,11 @@ def print_resource(is_dated, content_type)
 end
 
 def download_all
-  print "Starting user profiles"
   download_user_profiles()
-  print "Starting blog posts"
   download_blog_posts()
-  print "Starting blog settings"
   download_blog_settings()
-  print "Starting discussions"
   download_discussions()
-  print "Starting categories"
   download_categories()
-  print "Starting forums"
   download_forums()
-  print "Starting posts"
   download_posts()
 end
