@@ -18,8 +18,6 @@ $PLUCK_URL = "http://pluck.example.com"
 ## The CLI Interface
 
 $ ruby cli download [ContentType]
-
-* download [ContentType]
   * All
   * UserProfile
   * BlogPost
