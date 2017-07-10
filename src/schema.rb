@@ -165,6 +165,10 @@ begin
 
     Date :last_updated
     Date :created_on
+
+    String :content_blocking_state
+
+    unique([:key])
   end
 
   DB.create_table :posts do
@@ -191,6 +195,8 @@ begin
     String :owner_unique_id
     Date :last_updated
     Date :created_on
+
+    String :content_blocking_state
 
   end
 rescue

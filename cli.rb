@@ -59,6 +59,16 @@ class CLI < Thor
     print a.length
 
   end
+
+  desc "getemptyownerkeyposts", "gets number of posts with no owner_key"
+  def getemptyownerkeyposts()
+    count = 0
+
+    Post.all.each do |post|
+    end
+
+    print count
+  end
 end
 
 CLI.start(ARGV)

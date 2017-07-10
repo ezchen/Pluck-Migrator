@@ -116,6 +116,3 @@ class Api
     return items
   end
 end
-
-#Api.get_all_content_items('http://pluck.frommers.com', 'UserProfile', $access_key, 2013, 5, 10)
-#Api.get_all_content_items('http://pluck.frommers.com', 'BlogPost', $access_key, 2013, 5, 10)

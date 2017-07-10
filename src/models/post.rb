@@ -27,7 +27,9 @@ class Post < Sequel::Model
       "owner_unique_id" => xml.xpath('Owner').xpath('UniqueId').text,
 
       "last_updated" => xml.xpath('LastUpdated').text,
-      "created_on" => xml.xpath("CreatedOn").text
+      "created_on" => xml.xpath("CreatedOn").text,
+
+      "content_blocking_state" => PluckXml.get_text(xml, 'ContentBlockingState')
     }
 
     post = Post.create do |post|

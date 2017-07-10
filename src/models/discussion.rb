@@ -26,13 +26,18 @@ class Discussion < Sequel::Model
       "parent_key" => child.xpath('ParentKey').xpath('Key').text,
 
       "last_updated" => child.xpath('LastUpdated').text,
-      "created_on" => child.xpath('CreatedOn').text
+      "created_on" => child.xpath('CreatedOn').text,
+      "content_blocking_state" => child.xpath('ContentBlockingState').text
     }
 
-    discussion = Discussion.create do |disc|
-      data.each do |key, value|
-        disc.send("#{key}=", value)
+    begin
+      discussion = Discussion.create do |disc|
+        data.each do |key, value|
+          disc.send("#{key}=", value)
+        end
       end
+    rescue
+      print "duplicate forum #{data['title']}\n"
     end
 
   end
