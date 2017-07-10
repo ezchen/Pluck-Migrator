@@ -16,7 +16,8 @@ $access_key = "YOUR_ACCESS_KEY"
 $PLUCK_URL = "http://pluck.example.com"
 
 ## The CLI Interface
-* download [ContentType]
+
+$ ruby cli download [ContentType]
   * All
   * UserProfile
   * BlogPost
