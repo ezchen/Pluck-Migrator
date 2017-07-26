@@ -2,7 +2,6 @@ require 'sequel'
 
 # Creates the Schema for the sqlite database
 # Stores it into the file ./frommers.sqlite3
-
 DB = Sequel.connect('sqlite://frommers.sqlite3')
 DB.run('PRAGMA foreign_key = ON')
 
@@ -37,7 +36,10 @@ begin
 
     unique([:email, :key, :unique_id])
   end
+rescue
+end
 
+begin
   DB.create_table :blog_posts do
     primary_key :id
     Bool :needs_to_update_full_text
@@ -97,7 +99,10 @@ begin
     Date :last_updated
     Date :created_on
   end
+rescue
+end
 
+begin
   DB.create_table :blog_settings do
     primary_key [:key]
 
@@ -121,14 +126,20 @@ begin
 
     unique([:blog_url, :key, :title])
   end
+rescue
+end
 
+begin
   DB.create_table :categories do
     primary_key [:key]
     String :title
 
     String :key
   end
+rescue
+end
 
+begin
   DB.create_table :forums do
     primary_key [:key]
 
@@ -141,7 +152,10 @@ begin
 
     String :key_without_category
   end
+rescue
+end
 
+begin
   DB.create_table :discussions do
     primary_key :id
     String :owner_key
@@ -170,7 +184,10 @@ begin
 
     unique([:key])
   end
+rescue
+end
 
+begin
   DB.create_table :posts do
     String :title
     Bool :is_question
@@ -197,7 +214,19 @@ begin
     Date :created_on
 
     String :content_blocking_state
+  end
+rescue
+end
 
+begin
+  DB.create_table :photos do
+    String :photo_url
+    String :image_state
+    String :parent_key
+    String :key
+    String :title
+    String :owner_key
+    String :author_email
   end
 rescue
 end

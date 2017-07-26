@@ -5,7 +5,7 @@ require_relative "./src/models/blog_post.rb"
 require_relative "./src/models/blog_setting.rb"
 
 class CLI < Thor
-  desc "download CONTENTTYPE", "downloads CONTENTTYPE (All, UserProfile, BlogPost, BlogSettings, Discussions)"
+  desc "download CONTENTTYPE", "downloads CONTENTTYPE (All, UserProfile, BlogPost, BlogSettings, Discussions, Category, Forum, Post, Photo)"
   def download(content_type)
     if content_type == "All"
       download_all()
@@ -47,27 +47,30 @@ class CLI < Thor
     a = []
     BlogPost.all.each do |blog_post|
       if s.add?(blog_post.parent_blog_key) != nil
-        a.push("#{blog_post.last_edited_time_stamp}: #{blog_post.title}")
+        a.push("#{blog_post.last_edited_time_stamp}: #{blog_post.title}, #{blog_post.owner_key}")
       end
     end
-    print s.length
+    puts s.length
     a = a.sort
 
     a.each do |string|
-      print string + "\n"
+      puts string + "\n"
     end
-    print a.length
+    puts a.length
 
   end
 
   desc "getemptyownerkeyposts", "gets number of posts with no owner_key"
   def getemptyownerkeyposts()
     count = 0
-
     Post.all.each do |post|
+      puts "#{post.owner_key}\n"
+      if post.owner_key == nil
+        count = count + 1
+      end
     end
 
-    print count
+    puts "#{count}"
   end
 end
 

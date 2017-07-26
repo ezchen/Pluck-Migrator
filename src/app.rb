@@ -82,7 +82,7 @@ def download_photos
 
   photos.size.times.map {
     photo = photos.pop
-    print photo
+    Photo.create_from_xml(photo)
   }
 end
 
